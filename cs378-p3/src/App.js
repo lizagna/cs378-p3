@@ -7,8 +7,6 @@ function App() {
     "Dallas":{"latitude":32.78306,"longitude":-96.80667},
     "Houston":{"latitude":29.76328,"longitude":-95.36327}
   });
-
-
   
   
   return (
