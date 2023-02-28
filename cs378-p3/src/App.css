@@ -1,8 +1,8 @@
 body {
   padding-top: 10px;
   text-align: center;
+  
 }
-
 
 .Menu {
   display: flex;
@@ -15,13 +15,15 @@ body {
 
 .Button-row {
   margin-bottom: 10px;
-  
 }
 
-.Search-bar {
-  justify-content: left;
-  align-items: left;
+.Weather-data {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
+
 
 @keyframes App-logo-spin {
   from {
