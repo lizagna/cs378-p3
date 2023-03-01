@@ -1,73 +1,3 @@
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-// import './App.css';
-
-// function App() {
-//   const [cities, setCities] = useState({
-//     "Austin":{"latitude":30.26715,"longitude":-97.74306},
-//     "Dallas":{"latitude":32.78306,"longitude":-96.80667},
-//     "Houston":{"latitude":29.76328,"longitude":-95.36327}
-//   });
- 
-  
-//   const addLocation = () => {
-//     fetch("https://geocoding-api.open-meteo.com/v1/search?name=")
-//   }
-  
-//   return (
-//     <body>
-//       <table className="Menu">
-//         <tr className="Button-row">
-//           <td>
-//             <button>
-//               <b>Austin</b>
-//             </button>
-//           </td>
-//           <td>
-//             <button>
-//               <b>Dallas</b>
-//             </button>
-//           </td>
-//           <td>
-//             <button>
-//               <b>Houston</b>
-//             </button>
-//           </td>
-//         </tr>
-
-//         <tr className="Search-bar">
-//           <td>
-//             <form>
-//               <label>
-//                 <input type="text" />
-//               </label>
-//             </form>
-//           </td>
-//           <td>
-//             <button>
-//               <b>+</b>
-//             </button>
-//           </td>
-//         </tr>
-//       </table>
-
-//       <table className="Weather-data">
-//         <tr className="Weather-data-header">
-//           <td> 
-//             <b>Time</b> 
-//           </td>
-//           <td>
-//             <b>Temperature</b>
-//           </td>
-//         </tr>
-//       </table>
-//     </body>
-    
-//   );
-// }
-
-// export default App;
-
 
 import { useEffect, useState } from "react";
 
@@ -150,51 +80,49 @@ function App() {
     );
   }
 
-  function convertTime(dt) {
-    // let amOrPm = hour >= 12 ? 'PM' : 'AM';
-    // hour = (hour % 12) || 12;
-    var options = {
-      hour: 'numeric',
-      hour12: true
-    };
-    var timeString = dt.toLocaleString('en-US', options);
-    return timeString;
-  }
-
-  let rows = [];
   const dt = new Date();
   let hour = dt.getHours();
-  // Adds the Time and Temperature headers
-  rows.push(
-    <div
-      style={{
-        display: "flex",
-        width: "200px",
-        marginTop: "30px",
-        marginBottom: "0px",
+  let tbRows = [];
+  tbRows.push(
+    <tr>
+      <td
+        style={{ 
+          textAlign: "left", 
+          fontSize: "18px",
+          fontWeight: "bold",
+          width: "90px"
       }}
-    >
-      <div 
+      >
+        Time
+      </td>
+      <td
         style={{ 
-          flex: "1", 
           textAlign: "left", 
-          fontSize: "18px" 
+          fontSize: "18px",
+          fontWeight: "bold", 
+          width: "130px",
+          textAlign: "right",
         }}
       >
-        <b>Time</b>
-      </div>
-
-      <div 
-        style={{ 
-          flex: "1", 
-          textAlign: "left", 
-          fontSize: "18px" 
-        }}
-      >
-        <b>Temperature</b>
-      </div>
-    </div>
+        Temperature
+      </td>
+    </tr>
   );
+  
+  /**
+   * 
+   * @param {*} dt 
+   * @returns 
+   */
+  function convertTime(dt) {
+    const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true
+    };
+    const timeString = dt.toLocaleString('en-US', options);
+    return timeString;
+  }
 
   /**
    * Populates the table with the time and its corresponding temperature
@@ -203,41 +131,57 @@ function App() {
     if (temperatures[i]) {
       let tempTime = new Date(times[i].toString());
       let tempHour = convertTime(tempTime);
-      rows.push(
-        <div
-          style={{
-            display: "flex",
-            width: "200px",
-            backgroundColor: "white",
-            paddingTop: "5px",
-          }}
-        >
-          <div 
+
+      tbRows.push(
+        <tr>
+          <td
             style={{ 
-              fontSize: "18px", 
-              flex: "1", 
-              textAlign: "left" 
+              textAlign: "left", 
+              fontSize: "18px",
+              width: "70px", 
+              textAlign: "right",
+              paddingRight: "10px",
+              paddingTop: "5px",
+            }}
+           >
+           {tempHour}
+          </td>
+          <td
+            style={{ 
+              textAlign: "left", 
+              fontSize: "18px",
+              width: "130px",
+              textAlign: "right",
+              paddingTop: "5px",
             }}
           >
-            {tempHour}
-          </div>
-          <div 
-            style={{ 
-              fontSize: "18px", 
-              flex: "1", 
-              textAlign: "left" 
-            }}
-          >
-            {temperatures[i] + " °F"}
-          </div>
-        </div>
+          {temperatures[i] + " °F"}
+          </td>
+        </tr>
       );
+
     }
   }
+
+
+
   return (
-    <div style={{ textAlign: "center", margin: "30px" }}>
-      <div style={{ textAlign: "left" }}>{buttons}</div>
-      <div style={{ marginTop: "15px", display: "flex" }}>
+    <div 
+      style={{ 
+        textAlign: "center", 
+        margin: "30px" 
+      }}
+    >
+      <div 
+        style={{ 
+          textAlign: "left" 
+        }}
+      >
+        {buttons}
+      </div>
+      <div 
+        style={{ 
+          marginTop: "15px", display: "flex" }}>
         <input
           type="text"
           style={{
@@ -255,14 +199,22 @@ function App() {
             width: "30px",
             height: "30px",
             borderRadius: "5px",
+            fontWeight: "bold"
           }}
           onClick={addLocation}
         >
-          <b>+</b>
+          +
         </button>
       </div>
 
-      {rows}
+      
+      <table
+          style={{
+            marginTop: "30px",
+          }}
+      >
+          {tbRows}
+      </table>
     </div>
   );
 }
