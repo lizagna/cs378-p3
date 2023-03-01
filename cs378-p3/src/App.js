@@ -8,9 +8,9 @@ function App() {
     "Houston": {"latitude":29.76328, "longitude":-95.36327}
   });
   const [searchText, setSearchText] = useState("");
-  const [temperatures, setTemperatures] = useState([]);
-  const [times, setTimes] = useState([]);
   const [city, setCity] = useState("Houston");
+  const [times, setTimes] = useState([]);
+  const [temperatures, setTemperatures] = useState([]);
 
   useEffect(() => {
     fetchWeather('Houston')
@@ -61,21 +61,22 @@ function App() {
     buttons.push(
       <button
         style={{
+          marginTop: "5px",
           marginRight: "8px",
           paddingLeft: "8px",
           paddingRight: "8px",
           paddingTop: "5px",
           paddingBottom: "5px",
           fontSize: "18px",
-          marginTop: "5px",
           borderRadius: "5px",
+          fontWeight: "bold"
           backgroundColor: city === loc ? "pink" : "",
         }}
         onClick={() => {
           fetchWeather(loc);
         }}
       >
-        <b>{loc}</b>
+        {loc}
       </button>
     );
   }
@@ -97,10 +98,10 @@ function App() {
       </td>
       <td
         style={{ 
+          textAlign: "right",
           fontSize: "18px",
           fontWeight: "bold", 
           width: "130px",
-          textAlign: "right",
         }}
       >
         Temperature
@@ -126,8 +127,8 @@ function App() {
    */
   for (let i = hour; i < hour + 10; i++) {
     if (temperatures[i]) {
-      let tempTime = new Date(times[i].toString());
-      let tempHour = convertTime(tempTime);
+      let currTime = new Date(times[i].toString());
+      let currHour = convertTime(currTime);
 
       tbRows.push(
         <tr>
@@ -140,7 +141,7 @@ function App() {
               paddingTop: "5px",
             }}
            >
-           {tempHour}
+           {currHour}
           </td>
           <td
             style={{ 
