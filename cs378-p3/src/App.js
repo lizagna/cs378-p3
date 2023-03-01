@@ -97,7 +97,6 @@ function App() {
       </td>
       <td
         style={{ 
-          textAlign: "left", 
           fontSize: "18px",
           fontWeight: "bold", 
           width: "130px",
@@ -110,9 +109,7 @@ function App() {
   );
   
   /**
-   * 
-   * @param {*} dt 
-   * @returns 
+   * Converts the time into 12-hour time
    */
   function convertTime(dt) {
     const options = {
@@ -136,7 +133,6 @@ function App() {
         <tr>
           <td
             style={{ 
-              textAlign: "left", 
               fontSize: "18px",
               width: "70px", 
               textAlign: "right",
@@ -148,7 +144,6 @@ function App() {
           </td>
           <td
             style={{ 
-              textAlign: "left", 
               fontSize: "18px",
               width: "130px",
               textAlign: "right",
